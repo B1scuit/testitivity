@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: testitivity
+spec:
+  containers:
+  - name: test
+    image: testitivity
+    args:
+      - "commander"
+    imagePullPolicy: Never

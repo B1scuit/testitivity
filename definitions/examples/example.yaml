@@ -1,0 +1,9 @@
+apiVersion: "testitivity.example.com/v1"
+kind: TestPlan
+metadata:
+  name: my-new-test-plan
+  namespace: default
+spec:
+  name: "Example"
+  depth: 1
+  description: "Example test plan"

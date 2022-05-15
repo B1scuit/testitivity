@@ -1,0 +1,30 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: testplans.testitivity.example.com
+spec:
+  group: testitivity.example.com
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                depth:
+                  type: integer
+  scope: Namespaced
+  names:
+    plural: testplans
+    singular: testplan
+    kind: TestPlan
+    shortNames:
+    - tp
