@@ -1,3 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: testBodies 
+  namespace: default
+data:
+  check.json: |
+    {}
+---
 apiVersion: "testitivity.example.com/v1"
 kind: TestPlan
 metadata:
@@ -6,4 +15,29 @@ metadata:
 spec:
   name: "Example"
   depth: 1
-  description: "Example test plan"
+  # Define the dependancies of this service
+  dependancies:
+    - user_profile.users
+    - other_service.namespace
+    - another_service.namespace
+  # These headers will be added to all requests
+  globalHeaders:
+    - "Accept: *"
+  tests:
+    # Base health check 
+    - name: "Health check"
+      method: GET
+      expectedResponse:
+        code: 200
+    # Create record check
+    - name: "Check"
+      method: POST
+      url: /
+      headers:
+        - "Content-Type: application/json"
+      body:
+        configMap:
+          name: testBodies
+          key: check.json
+      expectedResponse:
+        code: 201
